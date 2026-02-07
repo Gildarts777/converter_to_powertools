@@ -42,7 +42,7 @@ def elabora_dati(df_ini):
 
 # --- ZONA INTERFACCIA (Streamlit) ---
 st.title("Convertitore CSV 🚀")
-st.write("Carica il file di CardMarket, ricevi quello per PowerTools.")
+st.write("Carica il file di PokèCard, ricevi quello per PowerTools.")
 
 # Widget per caricare il file
 uploaded_file = st.file_uploader("Scegli il file CSV", type=["csv"])
@@ -81,11 +81,7 @@ if uploaded_file is not None:
     except Exception as e:
         st.error(f"Errore nella lettura del file: {e}")
 
-# Footer
-st.markdown("---")
-st.markdown("<h5 style='text-align: center; color: #D81B60;'>Per Dany ❤️</h5>", unsafe_allow_html=True)
-
-
 # Info box
 with st.sidebar:
     st.info("**Istruzioni**\n\n1. Carica il file.\n2. Aspetta la spunta verde.\n3. Premi scarica.")
+
