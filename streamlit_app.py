@@ -1,18 +1,17 @@
 import streamlit as st
 import pandas as pd
 import io
-import streamlit_analytics
-
+import streamlit_analytics2 as streamlit_analytics  # <--- NOTA IL '2' QUI
 
 # --- CONFIGURAZIONE PAGINA ---
 st.set_page_config(page_title="Converter x Dany", page_icon="❤️")
 
-# --- ZONA LOGICA (Quasi identica a prima) ---
+# --- ZONA LOGICA ---
 def elabora_dati(df_ini):
     final_columns = ['cardmarketId', 'quantity', 'name', 'set', 'setCode', 'cn', "condition",
-           'language', 'isFirstEd', 'isReverseHolo', 'isSigned', 'oldPrice',
-           'price', 'comment', 'location', 'nameDE', 'nameES', 'nameFR', 'nameIT',
-           'rarity', 'listedAt']
+            'language', 'isFirstEd', 'isReverseHolo', 'isSigned', 'oldPrice',
+            'price', 'comment', 'location', 'nameDE', 'nameES', 'nameFR', 'nameIT',
+            'rarity', 'listedAt']
 
     df_fin = pd.DataFrame(data={}, columns=final_columns)
     
@@ -42,14 +41,15 @@ def elabora_dati(df_ini):
         
     return df_fin
 
-# --- ZONA INTERFACCIA (Streamlit) ---
+# --- ZONA INTERFACCIA CON TRACCIAMENTO ---
+# Qui inizia il tracciamento
 with streamlit_analytics.track():
     st.title("Convertitore CSV 🚀")
     st.write("Carica il file di PokèCard, ricevi quello per PowerTools.")
-    
+
     # Widget per caricare il file
     uploaded_file = st.file_uploader("Scegli il file CSV", type=["csv"])
-    
+
     if uploaded_file is not None:
         try:
             # Legge il file caricato
@@ -78,14 +78,12 @@ with streamlit_analytics.track():
                     data=csv_buffer,
                     file_name=new_name,
                     mime="text/csv",
-                    type="primary" # Lo rende colorato e evidente
+                    type="primary" 
                 )
                 
         except Exception as e:
             st.error(f"Errore nella lettura del file: {e}")
-    
+
     # Info box
     with st.sidebar:
         st.info("**Istruzioni**\n\n1. Carica il file.\n2. Aspetta la spunta verde.\n3. Premi scarica.")
-
-
